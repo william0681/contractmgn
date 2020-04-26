@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.servicereminder.mapper.ReminderDAO">
+  <resultMap id="BaseResultMap" type="com.zx.servicereminder.model.Reminder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="operator" jdbcType="INTEGER" property="operator" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operate_time" jdbcType="DATE" property="operateTime" />
+    <result column="manager" jdbcType="BIT" property="manager" />
+    <result column="accountant" jdbcType="BIT" property="accountant" />
+    <result column="overallchief" jdbcType="BIT" property="overallchief" />
+    <result column="areachief" jdbcType="BIT" property="areachief" />
+    <result column="buyer" jdbcType="BIT" property="buyer" />
+    <result column="responser" jdbcType="BIT" property="responser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, type, contract_id, operator, operate_type, operate_time, manager, accountant, 
+    overallchief, areachief, buyer, responser
+  </sql>
+  <select id="selectByExample" parameterType="com.zx.servicereminder.model.ReminderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reminder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reminder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reminder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.servicereminder.model.ReminderExample">
+    delete from reminder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.servicereminder.model.Reminder">
+    insert into reminder (id, type, contract_id, 
+      operator, operate_type, operate_time, 
+      manager, accountant, overallchief, 
+      areachief, buyer, responser)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{contractId,jdbcType=INTEGER}, 
+      #{operator,jdbcType=INTEGER}, #{operateType,jdbcType=VARCHAR}, #{operateTime,jdbcType=DATE}, 
+      #{manager,jdbcType=BIT}, #{accountant,jdbcType=BIT}, #{overallchief,jdbcType=BIT}, 
+      #{areachief,jdbcType=BIT}, #{buyer,jdbcType=BIT}, #{responser,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.servicereminder.model.Reminder">
+    insert into reminder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="contractId != null">
+        contract_id,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="operateTime != null">
+        operate_time,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="accountant != null">
+        accountant,
+      </if>
+      <if test="overallchief != null">
+        overallchief,
+      </if>
+      <if test="areachief != null">
+        areachief,
+      </if>
+      <if test="buyer != null">
+        buyer,
+      </if>
+      <if test="responser != null">
+        responser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null">
+        #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        #{operateTime,jdbcType=DATE},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=BIT},
+      </if>
+      <if test="accountant != null">
+        #{accountant,jdbcType=BIT},
+      </if>
+      <if test="overallchief != null">
+        #{overallchief,jdbcType=BIT},
+      </if>
+      <if test="areachief != null">
+        #{areachief,jdbcType=BIT},
+      </if>
+      <if test="buyer != null">
+        #{buyer,jdbcType=BIT},
+      </if>
+      <if test="responser != null">
+        #{responser,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.servicereminder.model.ReminderExample" resultType="java.lang.Long">
+    select count(*) from reminder
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update reminder
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractId != null">
+        contract_id = #{record.contractId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateType != null">
+        operate_type = #{record.operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTime != null">
+        operate_time = #{record.operateTime,jdbcType=DATE},
+      </if>
+      <if test="record.manager != null">
+        manager = #{record.manager,jdbcType=BIT},
+      </if>
+      <if test="record.accountant != null">
+        accountant = #{record.accountant,jdbcType=BIT},
+      </if>
+      <if test="record.overallchief != null">
+        overallchief = #{record.overallchief,jdbcType=BIT},
+      </if>
+      <if test="record.areachief != null">
+        areachief = #{record.areachief,jdbcType=BIT},
+      </if>
+      <if test="record.buyer != null">
+        buyer = #{record.buyer,jdbcType=BIT},
+      </if>
+      <if test="record.responser != null">
+        responser = #{record.responser,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update reminder
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      contract_id = #{record.contractId,jdbcType=INTEGER},
+      operator = #{record.operator,jdbcType=INTEGER},
+      operate_type = #{record.operateType,jdbcType=VARCHAR},
+      operate_time = #{record.operateTime,jdbcType=DATE},
+      manager = #{record.manager,jdbcType=BIT},
+      accountant = #{record.accountant,jdbcType=BIT},
+      overallchief = #{record.overallchief,jdbcType=BIT},
+      areachief = #{record.areachief,jdbcType=BIT},
+      buyer = #{record.buyer,jdbcType=BIT},
+      responser = #{record.responser,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.servicereminder.model.Reminder">
+    update reminder
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null">
+        contract_id = #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        operate_time = #{operateTime,jdbcType=DATE},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=BIT},
+      </if>
+      <if test="accountant != null">
+        accountant = #{accountant,jdbcType=BIT},
+      </if>
+      <if test="overallchief != null">
+        overallchief = #{overallchief,jdbcType=BIT},
+      </if>
+      <if test="areachief != null">
+        areachief = #{areachief,jdbcType=BIT},
+      </if>
+      <if test="buyer != null">
+        buyer = #{buyer,jdbcType=BIT},
+      </if>
+      <if test="responser != null">
+        responser = #{responser,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.servicereminder.model.Reminder">
+    update reminder
+    set type = #{type,jdbcType=INTEGER},
+      contract_id = #{contractId,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=INTEGER},
+      operate_type = #{operateType,jdbcType=VARCHAR},
+      operate_time = #{operateTime,jdbcType=DATE},
+      manager = #{manager,jdbcType=BIT},
+      accountant = #{accountant,jdbcType=BIT},
+      overallchief = #{overallchief,jdbcType=BIT},
+      areachief = #{areachief,jdbcType=BIT},
+      buyer = #{buyer,jdbcType=BIT},
+      responser = #{responser,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

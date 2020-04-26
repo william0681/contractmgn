@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zx.servicegateway.mapper.AccountReceivableDAO">
+  <resultMap id="BaseResultMap" type="com.zx.servicegateway.model.AccountReceivable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="node_id" jdbcType="INTEGER" property="nodeId" />
+    <result column="stage" jdbcType="INTEGER" property="stage" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="actual_money" jdbcType="DOUBLE" property="actualMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, contract_id, node_id, stage, start_date, end_date, money, actual_money, remark, 
+    `status`, `days`
+  </sql>
+  <select id="selectByExample" parameterType="com.zx.servicegateway.model.AccountReceivableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_receivable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_receivable
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from account_receivable
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.servicegateway.model.AccountReceivableExample">
+    delete from account_receivable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zx.servicegateway.model.AccountReceivable" useGeneratedKeys="true">
+    insert into account_receivable (contract_id, node_id, stage, 
+      start_date, end_date, money, 
+      actual_money, remark, `status`, 
+      `days`)
+    values (#{contractId,jdbcType=INTEGER}, #{nodeId,jdbcType=INTEGER}, #{stage,jdbcType=INTEGER}, 
+      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, #{money,jdbcType=DOUBLE}, 
+      #{actualMoney,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{days,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zx.servicegateway.model.AccountReceivable" useGeneratedKeys="true">
+    insert into account_receivable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contractId != null">
+        contract_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="stage != null">
+        stage,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="actualMoney != null">
+        actual_money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="days != null">
+        `days`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contractId != null">
+        #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=INTEGER},
+      </if>
+      <if test="stage != null">
+        #{stage,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="actualMoney != null">
+        #{actualMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.servicegateway.model.AccountReceivableExample" resultType="java.lang.Long">
+    select count(*) from account_receivable
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update account_receivable
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractId != null">
+        contract_id = #{record.contractId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stage != null">
+        stage = #{record.stage,jdbcType=INTEGER},
+      </if>
+      <if test="record.startDate != null">
+        start_date = #{record.startDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null">
+        end_date = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=DOUBLE},
+      </if>
+      <if test="record.actualMoney != null">
+        actual_money = #{record.actualMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.days != null">
+        `days` = #{record.days,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update account_receivable
+    set id = #{record.id,jdbcType=INTEGER},
+      contract_id = #{record.contractId,jdbcType=INTEGER},
+      node_id = #{record.nodeId,jdbcType=INTEGER},
+      stage = #{record.stage,jdbcType=INTEGER},
+      start_date = #{record.startDate,jdbcType=DATE},
+      end_date = #{record.endDate,jdbcType=DATE},
+      money = #{record.money,jdbcType=DOUBLE},
+      actual_money = #{record.actualMoney,jdbcType=DOUBLE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=INTEGER},
+      `days` = #{record.days,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.servicegateway.model.AccountReceivable">
+    update account_receivable
+    <set>
+      <if test="contractId != null">
+        contract_id = #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=INTEGER},
+      </if>
+      <if test="stage != null">
+        stage = #{stage,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="actualMoney != null">
+        actual_money = #{actualMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="days != null">
+        `days` = #{days,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.servicegateway.model.AccountReceivable">
+    update account_receivable
+    set contract_id = #{contractId,jdbcType=INTEGER},
+      node_id = #{nodeId,jdbcType=INTEGER},
+      stage = #{stage,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      money = #{money,jdbcType=DOUBLE},
+      actual_money = #{actualMoney,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      `days` = #{days,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

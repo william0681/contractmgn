@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/contractmgn.iml" filepath="$PROJECT_DIR$/contractmgn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-contract/service-contract.iml" filepath="$PROJECT_DIR$/service-contract/service-contract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-finance/service-finance.iml" filepath="$PROJECT_DIR$/service-finance/service-finance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-gateway/service-gateway.iml" filepath="$PROJECT_DIR$/service-gateway/service-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-reminder/service-reminder.iml" filepath="$PROJECT_DIR$/service-reminder/service-reminder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-schedule/service-schedule.iml" filepath="$PROJECT_DIR$/service-schedule/service-schedule.iml" />
+    </modules>
+  </component>
+</project>
