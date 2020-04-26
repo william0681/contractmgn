@@ -1,0 +1,66 @@
+version: "3"
+services:
+  eureka-server:
+    container_name: eureka-server
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/eureka-server
+    ports:
+      - "8761:8761"
+  service-reminder:
+    container_name: service-reminder
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/service-reminder
+    ports:
+      - "8082"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+  service-finance:
+    container_name: service-finance
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/service-finance
+    ports:
+      - "8084"
+    depends_on:
+      - eureka-server
+      - service-reminder
+      - service-schedule
+    links:
+      - eureka-server
+      - service-reminder
+      - service-schedule
+  service-contract:
+    container_name: service-contract
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/service-contract
+    ports:
+      - "8083"
+    depends_on:
+      - eureka-server
+      - service-reminder
+    links:
+      - eureka-server
+      - service-reminder
+  service-schedule:
+    container_name: service-schedule
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/service-schedule
+    ports:
+      - "8081"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+  service-gateway:
+    container_name: service-gateway
+    image: registry.cn-shanghai.aliyuncs.com/contractmgn/service-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - service-reminder
+      - service-contract
+      - service-finance
+      - service-schedule
+    links:
+      - eureka-server
+      - service-reminder
+      - service-contract
+      - service-finance
+      - service-schedule
