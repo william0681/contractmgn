@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM java:8
 MAINTAINER zxsong
 EXPOSE 8081
 ADD target/service-schedule-0.0.1-SNAPSHOT.jar /app.jar
